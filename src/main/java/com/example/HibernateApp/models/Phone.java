@@ -19,8 +19,4 @@ public class Phone {
 
     @Column(name = "os", nullable = false)
     private String os;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
 }
