@@ -1,6 +1,8 @@
 package com.example.HibernateApp.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -9,6 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "phones")
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties({"users"})
 public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +23,8 @@ public class Phone {
     @Column(name = "os", nullable = false)
     private String os;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 }
